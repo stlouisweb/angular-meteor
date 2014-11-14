@@ -28,21 +28,15 @@ var onReady = function () {
     angular.bootstrap(document, ['angular-meteor']);
   }
 
-  // Recompile whenever the DOM elements are updated.
-  var notifyParented = Blaze.View.notifyParented;
-  Blaze.View.notifyParented = function () {
-    notifyParented.apply(this, arguments);
-    if (this.region) {
-      Tracker.afterFlush(function() {
-        angular.element(document).injector().invoke(['$compile', '$document', '$rootScope',
-          function ($compile, $document, $rootScope) {
-            $compile($document)($rootScope);
-            if (!$rootScope.$$phase) $rootScope.$apply();
-          }
-        ]);
-      });
-    }
-  }
+  Tracker.afterFlush(function() {
+    angular.element(document).injector().invoke(['$compile', '$document', '$rootScope',
+      function ($compile, $document, $rootScope) {
+        $compile($document)($rootScope);
+        if (!$rootScope.$$phase) $rootScope.$apply();
+      }
+    ]);
+  });
+
 };
 
 // Manual initialisation of angular-meteor
