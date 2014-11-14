@@ -40,6 +40,7 @@ var onReady = function () {
       });
     });
   }
+}
 
 // Manual initialisation of angular-meteor
 if (Meteor.isCordova) {
